@@ -11,11 +11,14 @@ class Genetic {
 
   void main() {
     Map<int, List<int>> chrommos =
-        List.generate(2, (_) => generateRandomChrommo()).asMap();
+        List.generate(5, (_) => generateRandomChrommo()).asMap();
 
-    print('Start (random chrommossomes) $chrommos');
-    chrommos = rateChrommos(chrommos);
-    print('Rated $chrommos');
+    print('Start (random chrommos)\n');
+    printChrommos(false, chrommos);
+    chrommos = rateAndSortChrommos(chrommos);
+
+    print('After rating and sorting \n');
+    printChrommos(true, chrommos);
   }
 
   List<int> generateRandomChrommo() {
@@ -33,7 +36,7 @@ class Genetic {
     return chrommo;
   }
 
-  Map<int, List<int>> rateChrommos(Map<int, List<int>> chrommos) {
+  Map<int, List<int>> rateAndSortChrommos(Map<int, List<int>> chrommos) {
     final rated = chrommos.map(
       (index, chrommo) => MapEntry(
         getFitness(chrommo),
@@ -41,7 +44,16 @@ class Genetic {
       ),
     );
 
-    return rated;
+    final asList = rated.entries.toList();
+    asList.sort((a, b) => a.key - b.key);
+
+    return Map.fromEntries(asList);
+  }
+
+  void printChrommos(bool isFit, Map<int, List<int>> crommos) {
+    crommos.forEach((key, value) {
+      print('${isFit ? 'Travel time' : 'Starting Index'} $key - $value \n');
+    });
   }
 
   int getFitness(List<int> chrommo) {
