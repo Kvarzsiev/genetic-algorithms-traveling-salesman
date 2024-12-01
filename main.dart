@@ -10,58 +10,50 @@ class Genetic {
   ];
 
   void main() {
-    Map<int, List<int>> crommos =
-        List.generate(2, (_) => generateRandomCrommo()).asMap();
+    Map<int, List<int>> chrommos =
+        List.generate(2, (_) => generateRandomchrommo()).asMap();
 
-    print(crommos);
-    crommos = rateCrommos(crommos);
-    print(crommos);
+    print('Start (random chrommossomes) $chrommos');
+    chrommos = ratechrommos(chrommos);
+    print('Rated $chrommos');
   }
 
-  List<int> generateRandomCrommo() {
-    final List<int> crommo = [];
+  List<int> generateRandomchrommo() {
+    final List<int> chrommo = [];
 
     final rand = Random();
 
-    while (crommo.length < 5) {
+    while (chrommo.length < 5) {
       final generated = rand.nextInt(5);
-      if (!crommo.contains(generated)) {
-        crommo.add(generated);
+      if (!chrommo.contains(generated)) {
+        chrommo.add(generated);
       }
     }
 
-    return crommo;
+    return chrommo;
   }
 
-  Map<int, List<int>> rateCrommos(Map<int, List<int>> crommos) {
-    final rated = crommos.map(
-      (index, crommo) => MapEntry(
-        getFitness(crommo),
-        crommo,
+  Map<int, List<int>> ratechrommos(Map<int, List<int>> chrommos) {
+    final rated = chrommos.map(
+      (index, chrommo) => MapEntry(
+        getFitness(chrommo),
+        chrommo,
       ),
     );
 
     return rated;
   }
 
-  int getFitness(List<int> crommo) {
+  int getFitness(List<int> chrommo) {
     int fitVal = 0;
 
-    for (int j = 0; j < crommo.length - 1; j++) {
-      final currentPoint = points[crommo[j]];
-      final travelTime = currentPoint[crommo[j + 1]];
+    for (int j = 0; j < chrommo.length - 1; j++) {
+      final currentPoint = points[chrommo[j]];
+      final travelTime = currentPoint[chrommo[j + 1]];
       fitVal += travelTime;
     }
 
-    print('Crommo takes $fitVal minutes to travel all points');
     return fitVal;
-  }
-
-  void printCrommos(Map<int, List<int>> crommos) {
-    crommos.forEach((index, crommo) {
-      print('Crommo val: $index');
-      print(crommo);
-    });
   }
 }
 
