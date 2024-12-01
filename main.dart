@@ -11,14 +11,14 @@ class Genetic {
 
   void main() {
     Map<int, List<int>> chrommos =
-        List.generate(2, (_) => generateRandomchrommo()).asMap();
+        List.generate(2, (_) => generateRandomChrommo()).asMap();
 
     print('Start (random chrommossomes) $chrommos');
-    chrommos = ratechrommos(chrommos);
+    chrommos = rateChrommos(chrommos);
     print('Rated $chrommos');
   }
 
-  List<int> generateRandomchrommo() {
+  List<int> generateRandomChrommo() {
     final List<int> chrommo = [];
 
     final rand = Random();
@@ -33,7 +33,7 @@ class Genetic {
     return chrommo;
   }
 
-  Map<int, List<int>> ratechrommos(Map<int, List<int>> chrommos) {
+  Map<int, List<int>> rateChrommos(Map<int, List<int>> chrommos) {
     final rated = chrommos.map(
       (index, chrommo) => MapEntry(
         getFitness(chrommo),
