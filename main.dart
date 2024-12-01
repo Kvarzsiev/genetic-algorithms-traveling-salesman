@@ -1,21 +1,13 @@
-import 'chrommo.dart';
+import 'chromo.dart';
+import 'chromo_list_extensions.dart';
 
-void sortChrommos(List<Chrommo> chrommos) {
-  return chrommos.sort((a, b) => a.fitness - b.fitness);
-}
+void main(List<String> args) {
+  final startListLength = args.length > 0 ? int.parse(args.first) : 2;
 
-void printChrommos(List<Chrommo> chrommos) {
-  chrommos.forEach((chrommo) {
-    chrommo.printSelf();
-  });
-}
+  List<Chromo> chromos = [];
 
-void main() {
-  List<Chrommo> chrommos =
-      List.generate(5, (index) => Chrommo.fromRandom(id: index));
-
-  sortChrommos(chrommos);
-
-  print('Start (random chrommos)\n');
-  printChrommos(chrommos);
+  do {
+    chromos.defaultRoutine(startListLength);
+  } while (!chromos
+      .any((element) => element.id.contains('m') && element.fitness == 11));
 }
